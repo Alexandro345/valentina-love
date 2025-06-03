@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">/>
+  <meta charset="UTF-8" />
   <title>Para Valentina 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      max-width: 100vw;
+      overflow-x: hidden;
       background-color: #ffe6f0;
       font-family: 'Segoe UI', sans-serif;
       color: #4d004d;
-      height: 100vh;
-      position: relative;
     }
 
     .content {
       position: relative;
-      z-index: 10;
+      z-index: 2;
       text-align: center;
       padding: 100px 20px;
     }
@@ -53,19 +53,48 @@
       display: inline-block;
     }
 
-    /* Gatitos animados con imágenes diferentes */
+    /* Gatitos animados */
     .cat {
       position: absolute;
-      width: 160px;
-      height: 160px;
-      background-size: contain;
+      width: 80px;
+      height: 80px;
+      background-size: cover;
       background-repeat: no-repeat;
-      opacity: 0.85;
-      animation-name: floatCat;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
+      animation: floatCat 20s linear infinite;
+      opacity: 0.8;
     }
 
+    /* Aquí asigna diferentes imágenes a cada gato */
+    .cat:nth-child(1) { 
+  top: 20%; 
+  left: -80px; 
+  animation-delay: 0s;
+  background-image: url('gatitos1.png');
+}
+.cat:nth-child(2) { 
+  top: 35%; 
+  left: -120px; 
+  animation-delay: 4s;
+  background-image: url('gatitos2.png');
+}
+.cat:nth-child(3) { 
+  top: 50%; 
+  left: -160px; 
+  animation-delay: 8s;
+  background-image: url('gatitos3.png');
+}
+.cat:nth-child(4) { 
+  top: 65%; 
+  left: -200px; 
+  animation-delay: 12s;
+  background-image: url('gatitos4.png');
+}
+.cat:nth-child(5) { 
+  top: 80%; 
+  left: -240px; 
+  animation-delay: 16s;
+  background-image: url('gatitos5.png');
+}
     @keyframes floatCat {
       0% { transform: translateX(0); }
       100% { transform: translateX(120vw); }
@@ -78,8 +107,8 @@
       font-size: 24px;
       animation: floatHeart 6s linear infinite;
       opacity: 0.8;
-      user-select: none;
-      pointer-events: none;
+      user-select: none; /* evitar selección accidental en móvil */
+      pointer-events: none; /* para que no interfiera tocando */
     }
 
     @keyframes floatHeart {
@@ -101,51 +130,18 @@
 </head>
 <body>
 
-  <!-- Gatitos con imágenes diferentes y posiciones/animaciones desincronizadas -->
-  <script>
-    const gatitosUrls = [
-      'gatitos1.png',
-      'gatitos2.png',
-      'gatitos3.png',
-      'gatitos4.png',
-      'gatitos5.png'
-    ];
+  <!-- GATOS -->
+  <div class="cat"></div>
+  <div class="cat"></div>
+  <div class="cat"></div>
 
-    const numGatitos = 6;  // cantidad de gatitos
-
-    for(let i = 0; i < numGatitos; i++) {
-      const gatito = document.createElement('div');
-      gatito.classList.add('cat');
-
-      // Imagen aleatoria para cada gatito
-      const img = gatitosUrls[Math.floor(Math.random() * gatitosUrls.length)];
-      gatito.style.backgroundImage = `url(${img})`;
-
-      // Posición vertical fija, separadas verticalmente
-      const topPercent = 15 + i * 12;  // para distribuir gatitos verticalmente
-      gatito.style.top = `${topPercent}%`;
-
-      // Posición horizontal inicial fuera de pantalla a la izquierda (aleatoria)
-      gatito.style.left = `${-80 - (Math.random() * 100)}px`;
-
-      // Duración de la animación aleatoria entre 15 y 25 segundos
-      const duracion = 15 + Math.random() * 10;
-      gatito.style.animationDuration = `${duracion}s`;
-
-      // Retraso aleatorio para que no estén sincronizados
-      gatito.style.animationDelay = `${Math.random() * 20}s`;
-
-      document.body.appendChild(gatito);
-    }
-  </script>
-
-  <!-- Corazones flotantes -->
+  <!-- CORAZONES -->
   <script>
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart-float');
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      heart.style.fontSize = Math.random() * 20 + 20 + 'px';
       heart.innerText = '❤️';
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
@@ -153,14 +149,14 @@
     setInterval(createHeart, 300);
   </script>
 
-  <!-- Mensaje principal -->
+  <!-- MENSAJE -->
   <div class="content">
     <h1>Para ti, Valentina 💕</h1>
     <div class="heart">❤️</div>
     <div class="message-box">
       <p>Tu sonrisa ilumina mis días y tu presencia llena mi corazón de alegría. 🐱💕</p>
       <p>No hay palabras suficientes para decirte cuánto te quiero. Gracias por existir, por ser tú, por hacer que todo valga la pena. 🌟</p>
-      <p>Con todo mi amor,<br /><strong>Alexandro💘</strong></p>
+      <p>Con todo mi amor,<br><strong>Alexandro. 💘</strong></p>
     </div>
   </div>
 
