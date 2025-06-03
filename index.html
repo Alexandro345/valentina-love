@@ -1,148 +1,168 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Te amo mucho Valentina</title>
+  <meta charset="UTF-8" />
+  <title>Para Valentina 💖</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       overflow: hidden;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-      font-family: 'Comic Sans MS', cursive;
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #4d004d;
+      height: 100vh;
+      position: relative;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 100px 20px;
     }
 
     h1 {
-      color: white;
-      text-shadow: 2px 2px 10px red;
-      text-align: center;
       font-size: 3em;
-      margin-top: 50px;
+      margin-bottom: 10px;
     }
 
-    .heart, .cat {
+    p {
+      font-size: 1.5em;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .heart {
+      font-size: 5em;
+      color: red;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .message-box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-top: 30px;
+      display: inline-block;
+    }
+
+    /* Gatitos animados con imágenes diferentes */
+    .cat {
       position: absolute;
-      width: 50px;
-      height: 50px;
-      animation: float 5s linear infinite;
-      pointer-events: none;
-      z-index: 100;
+      width: 160px;
+      height: 160px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.85;
+      animation-name: floatCat;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
-    .heart::before,
-    .heart::after {
-      content: "";
+    @keyframes floatCat {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(120vw); }
+    }
+
+    /* Corazones flotando */
+    .heart-float {
       position: absolute;
-      width: 25px;
-      height: 40px;
-      background: red;
-      border-radius: 25px 25px 0 0;
-      top: 0;
-      left: 12.5px;
-    }
-
-    .heart::after {
-      transform: rotate(-45deg);
-      left: 0;
-    }
-
-    .heart::before {
-      transform: rotate(45deg);
-      left: 25px;
-    }
-
-    .explosion {
-      position: absolute;
-      border-radius: 50%;
-      background: pink;
+      color: #ff3366;
+      font-size: 24px;
+      animation: floatHeart 6s linear infinite;
       opacity: 0.8;
-      animation: explode 1s ease-out forwards;
-      z-index: 50;
+      user-select: none;
+      pointer-events: none;
     }
 
-    @keyframes float {
+    @keyframes floatHeart {
       0% {
-        transform: translateY(100vh) rotate(0deg);
+        bottom: 0;
+        opacity: 0;
+        transform: translateX(0) scale(1);
+      }
+      50% {
         opacity: 1;
       }
       100% {
-        transform: translateY(-10vh) rotate(360deg);
+        bottom: 100vh;
         opacity: 0;
-      }
-    }
-
-    @keyframes explode {
-      0% {
-        width: 0;
-        height: 0;
-        opacity: 1;
-      }
-      100% {
-        width: 200px;
-        height: 200px;
-        opacity: 0;
+        transform: translateX(50px) scale(1.5);
       }
     }
   </style>
 </head>
 <body>
-  <h1>Te amo mucho Valentina!!!! ❤️</h1>
 
+  <!-- Gatitos con imágenes diferentes y posiciones/animaciones desincronizadas -->
   <script>
-    const body = document.body;
-    const catImages = [
-      'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
-      'https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif',
-      'https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif'
+    const gatitosUrls = [
+      'gatitos1.png',
+      'gatitos2.png',
+      'gatitos3.png',
+      'gatitos4.png',
+      'gatitos5.png'
     ];
 
+    const numGatitos = 6;  // cantidad de gatitos
+
+    for(let i = 0; i < numGatitos; i++) {
+      const gatito = document.createElement('div');
+      gatito.classList.add('cat');
+
+      // Imagen aleatoria para cada gatito
+      const img = gatitosUrls[Math.floor(Math.random() * gatitosUrls.length)];
+      gatito.style.backgroundImage = `url(${img})`;
+
+      // Posición vertical fija, separadas verticalmente
+      const topPercent = 15 + i * 12;  // para distribuir gatitos verticalmente
+      gatito.style.top = `${topPercent}%`;
+
+      // Posición horizontal inicial fuera de pantalla a la izquierda (aleatoria)
+      gatito.style.left = `${-80 - (Math.random() * 100)}px`;
+
+      // Duración de la animación aleatoria entre 15 y 25 segundos
+      const duracion = 15 + Math.random() * 10;
+      gatito.style.animationDuration = `${duracion}s`;
+
+      // Retraso aleatorio para que no estén sincronizados
+      gatito.style.animationDelay = `${Math.random() * 20}s`;
+
+      document.body.appendChild(gatito);
+    }
+  </script>
+
+  <!-- Corazones flotantes -->
+  <script>
     function createHeart() {
       const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
-      body.appendChild(heart);
-
-      setTimeout(() => {
-        body.removeChild(heart);
-      }, 5000);
+      heart.classList.add('heart-float');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      heart.innerText = '❤️';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
     }
-
-    function createExplosion(x, y) {
-      const explosion = document.createElement('div');
-      explosion.classList.add('explosion');
-      explosion.style.left = `${x - 100}px`;
-      explosion.style.top = `${y - 100}px`;
-      body.appendChild(explosion);
-      setTimeout(() => {
-        body.removeChild(explosion);
-      }, 1000);
-    }
-
-    function createCat() {
-      const cat = document.createElement('img');
-      cat.src = catImages[Math.floor(Math.random() * catImages.length)];
-      cat.classList.add('cat');
-      cat.style.left = Math.random() * window.innerWidth + 'px';
-      cat.style.width = '80px';
-      cat.style.animationDuration = (5 + Math.random() * 5) + 's';
-      body.appendChild(cat);
-      setTimeout(() => {
-        body.removeChild(cat);
-      }, 8000);
-    }
-
     setInterval(createHeart, 300);
-    setInterval(createCat, 3000);
-
-    function handleInteraction(e) {
-  const x = e.touches ? e.touches[0].clientX : e.clientX;
-  const y = e.touches ? e.touches[0].clientY : e.clientY;
-  createExplosion(x, y);
-}
-
-    document.addEventListener('click', handleInteraction);
-    document.addEventListener('touchstart', handleInteraction);
-
   </script>
+
+  <!-- Mensaje principal -->
+  <div class="content">
+    <h1>Para ti, Valentina 💕</h1>
+    <div class="heart">❤️</div>
+    <div class="message-box">
+      <p>Tu sonrisa ilumina mis días y tu presencia llena mi corazón de alegría. 🐱💕</p>
+      <p>No hay palabras suficientes para decirte cuánto te quiero. Gracias por existir, por ser tú, por hacer que todo valga la pena. 🌟</p>
+      <p>Con todo mi amor,<br /><strong>Alexandro💘</strong></p>
+    </div>
+  </div>
+
 </body>
 </html>
